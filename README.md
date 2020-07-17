@@ -1,6 +1,6 @@
 # jslang-wheels 
 
-A repo for personal practising in JavaScript(ES).
+A repo for personal JavaScript language practise.
 
 This could be described as `茴香豆的茴字有几种写法`(How do you write the character of `fennel` in `fennel-flavoured-beans`), said by Kong Yiji, the main character from Lu Xun's novel of the same name, means to show off someone's coding skill on reinventing wheels but the wheel couldn't outperform others' code. 
 
