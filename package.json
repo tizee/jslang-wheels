@@ -1,0 +1,13 @@
+{
+  "name": "jslang-wheels",
+  "version": "0.0.1",
+  "description": "A playground",
+  "main": "index.js",
+  "repository": "git@github.com:tizee/jslang-wheels.git",
+  "author": "tizee <33030965+tizee@users.noreply.github.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^3.9.7"
+  }
+}

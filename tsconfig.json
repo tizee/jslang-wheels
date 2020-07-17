@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ES6",
+        "moduleResolution": "Node",
+        "outDir": "dist",
+    },
+    "include": ["src/tz-promise/index.ts"],
+    "compileOnSave": false
+}
