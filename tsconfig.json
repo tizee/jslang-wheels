@@ -3,6 +3,7 @@
     "target": "ESNext",
     "module": "CommonJS",
     "moduleResolution": "Node",
+    "lib": ["ES6", "ESNext", "DOM"],
     "outDir": "dist"
   },
   "include": ["src/promise/index.ts", "src/patterns/observer/index.ts"],

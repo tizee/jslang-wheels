@@ -2,7 +2,7 @@ class ToyPromise {
   constructor(executor) {
     this._resovledQueue = []; // queue for resolved callbacks
     this._rejectedQueue = []; // queue for rejected callbacks
-    const handleResovle = (val) => {
+    const handleResolve = (val) => {
       // execute resovled callback
       while (this._resovledQueue.length) {
         const callback = this._resovledQueue.shift();
@@ -16,7 +16,7 @@ class ToyPromise {
         callback(val);
       }
     };
-    executor(handleResovle, handleReject);
+    executor(handleResolve, handleReject);
   }
 
   then(onFulfilled = (val) => {}, onRejected = (val) => {}) {
