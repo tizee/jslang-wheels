@@ -1,5 +1,7 @@
 # OSX
 .DS_Store
+# output
+dist
 # npm modules
 node_modules
 yarn.lock
