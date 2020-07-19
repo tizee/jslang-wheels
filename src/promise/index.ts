@@ -58,7 +58,11 @@ class SlimPromise implements PromiseLike {
         // update state in next event-loop iteration
         this.state = PROMISE_STATES.fulfilled;
         this.val = val;
-        this.fullfilledQueue.forEach((callback) => callback(val));
+        while (this.fullfilledQueue.length) {
+          // remove executed callback
+          const callback = this.fullfilledQueue.shift();
+          callback(val);
+        }
       });
     };
     const handleReject = (reason?: any): undefined => {
@@ -68,7 +72,11 @@ class SlimPromise implements PromiseLike {
         // update state in next event-loop iteration
         this.state = PROMISE_STATES.fulfilled;
         this.val = reason;
-        this.rejectQueue.forEach((callback) => callback(reason));
+        while (this.rejectQueue.length) {
+          // remove executed callback
+          const callback = this.rejectQueue.shift();
+          callback(reason);
+        }
       });
     };
     try {
@@ -131,6 +139,7 @@ class SlimPromise implements PromiseLike {
     return this.then(null, rejectedCallback);
   }
 
+  // resolve when all Promises are resolved
   static all(ps: Array<SlimPromise | PromiseLike>): SlimPromise {
     let len = 0;
     let resultArr = [];
@@ -164,6 +173,7 @@ class SlimPromise implements PromiseLike {
     return new SlimPromise((resolve, reject) => reject(value));
   }
 
+  // return the first Promise that resolved or rejected
   static race(ps: Array<PromiseLike>): SlimPromise {
     return new SlimPromise((resolve, reject) => {
       try {
