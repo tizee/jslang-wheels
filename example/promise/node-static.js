@@ -1,5 +1,3 @@
-const { createNamedExports } = require('typescript');
-
 let p1 = Promise.resolve(1);
 p1.then((res) => {
   console.log(res);
