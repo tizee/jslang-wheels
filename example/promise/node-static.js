@@ -49,3 +49,19 @@ let p7 = new Promise((resolve, reject) => {
 Promise.all([p6, p7]).then((val) => {
   console.log(val); // [6,7]
 });
+let p8 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(9);
+  });
+});
+p8.then((val) => {
+  console.log(val);
+  return val + 1;
+})
+  .finally(() => {
+    console.log('finally');
+  })
+  .then((val) => {
+    console.log(val);
+  });
+// 9->finally->10
