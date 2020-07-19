@@ -23,4 +23,6 @@ an example Promise following Promises/A+ spec.
 
 #### Reference
 
-MDN Promise, Promises/A+
+- MDN Promise
+- Promises/A+ spec
+- JavaScript Event-loop: macro-tasks and microtasks

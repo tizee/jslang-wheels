@@ -1,4 +1,7 @@
-const { StockData, StockDisplay } = require('../../dist/patterns/observer');
+const {
+  StockData,
+  StockDisplay,
+} = require('../../dist/patterns/behavioral/observer');
 
 let sum = 1000;
 const data = new StockData(sum);
