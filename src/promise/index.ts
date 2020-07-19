@@ -53,13 +53,14 @@ class SlimPromise implements PromiseLike {
     this.rejectQueue = [];
     const handleResolve = (val?: PromiseValue): undefined => {
       if (this.state !== PROMISE_STATES.pending) return;
-      // run in next event-loop with fresh stack
+      // add macro-task to run in next event-loop with fresh stack
       setTimeout(() => {
         // update state in next event-loop iteration
         this.state = PROMISE_STATES.fulfilled;
         this.val = val;
         while (this.fullfilledQueue.length) {
           // remove executed callback
+          // it must not be called more than once.
           const callback = this.fullfilledQueue.shift();
           callback(val);
         }
@@ -67,13 +68,14 @@ class SlimPromise implements PromiseLike {
     };
     const handleReject = (reason?: any): undefined => {
       if (this.state !== PROMISE_STATES.pending) return;
-      // run in next event-loop with fresh stack
+      // add macro-task to run in next event-loop with fresh stack
       setTimeout(() => {
         // update state in next event-loop iteration
         this.state = PROMISE_STATES.fulfilled;
         this.val = reason;
         while (this.rejectQueue.length) {
           // remove executed callback
+          // it must not be called more than once.
           const callback = this.rejectQueue.shift();
           callback(reason);
         }
@@ -87,6 +89,7 @@ class SlimPromise implements PromiseLike {
   }
   /**
    *
+   * then must return a promise
    * In practice, this requirement ensures that onFulfilled and onRejected execute asynchronously, after the event loop turn in which then is called, and with a fresh stack. This can be implemented with either a “macro-task” mechanism such as setTimeout or setImmediate, or with a “micro-task” mechanism such as MutationObserver or process.nextTick
    * @param onFulfilled optional
    * @param onRejected optional
@@ -95,9 +98,11 @@ class SlimPromise implements PromiseLike {
     onFulfilled?: ((value: any) => any | PromiseLike) | undefined | null,
     onRejected?: ((reason: any) => never | PromiseLike) | undefined | null
   ): SlimPromise {
+    // If onFulfilled is not a function and promise1 is fulfilled, promise2 must be fulfilled with the same value as promise1.
     if (typeof onFulfilled !== 'function') {
       onFulfilled = (res) => (res ? res : null);
     }
+    // If onRejected is not a function and promise1 is rejected, promise2 must be rejected with the same reason as promise1.
     if (typeof onRejected !== 'function') {
       /**
        * “exception” is a value that is thrown using the throw statement.
@@ -110,10 +115,12 @@ class SlimPromise implements PromiseLike {
     return new SlimPromise((resolve, reject) => {
       curPromise.fullfilledQueue.push(() => {
         try {
+          // it must not be called before promise is fulfilled.
           let res = onFulfilled(curPromise.val);
           if (res instanceof SlimPromise) {
             res.then(resolve, reject);
           } else {
+            // resolved if not a Promise
             resolve(res);
           }
         } catch (error) {
@@ -122,11 +129,13 @@ class SlimPromise implements PromiseLike {
       });
       curPromise.rejectQueue.push(() => {
         try {
+          // it must not be called before promise is rejected.
           let res = onRejected(curPromise.val);
           if (res instanceof SlimPromise) {
             res.then(resolve, reject);
           } else {
-            reject(res);
+            // resolved if not a Promise
+            resolve(res);
           }
         } catch (error) {
           reject(error);
@@ -187,6 +196,17 @@ class SlimPromise implements PromiseLike {
         reject(error);
       }
     });
+  }
+
+  // execute finally callback after resolved/rejected
+  public finally(callback: any) {
+    return this.then(
+      (value) => SlimPromise.resolve(callback()).then(() => value),
+      (reason) =>
+        SlimPromise.resolve(callback()).then(() => {
+          throw new Error(reason);
+        })
+    );
   }
 }
 
