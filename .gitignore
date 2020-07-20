@@ -1,6 +1,7 @@
 # OSX
 .DS_Store
 # output
+coverage
 dist
 # npm modules
 node_modules

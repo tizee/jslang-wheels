@@ -13,6 +13,17 @@ A: Why build your own wheel when your code couldn't outperform others?
 B: Only because the interviewer ask me to reinvent it in just couple of minutes(maybe in a hour).
 ```
 
+## Table Of Contents
+
+- API implementations (polyfill in JavaScript)
+  - Promise (in TypeScript)
+- Design Patterns (in TypeScript)
+- Utils
+  - throttle
+  - debounce
+  - deepCopy
+  - deepCompare
+
 ### Design Patterns
 
 Use Head First Design Patterns as a reference
