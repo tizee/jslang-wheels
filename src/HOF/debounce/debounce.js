@@ -4,7 +4,7 @@
  * 2. If wait is 0 and leading is false, func invocation is deferred until to the next tick, similar to setTimeout with a timeout of 0.
  */
 function debounce(fn, wait, option) {
-  let lastThis, lastArgs, result, leading, trailing, timerId;
+  let lastTime, lastThis, lastArgs, result, leading, trailing, timerId;
 
   if (typeof option === 'object') {
     leading = !!option.leading;
@@ -21,21 +21,27 @@ function debounce(fn, wait, option) {
     if (leading && !timerId) {
       invokeFunc();
     }
-    timerId = setTimeout(trailingEdge, wait);
+    trailingEdge();
     return result;
   }
 
   function trailingEdge() {
-    timerId = undefined;
-    if (trailing && lastArgs) {
-      return invokeFunc();
+    const waiting = Date.now() - lastTime;
+    if (waiting >= 0 && waiting < wait) {
+      timerId = setTimeout(trailingEdge, waiting);
+    } else {
+      timerId = undefined;
+      if (trailing && lastArgs) {
+        return invokeFunc();
+      }
+      lastThis = lastArgs = undefined;
     }
-    lastThis = lastArgs = undefined;
     return result;
   }
 
   function debounced(...args) {
     // update context
+    lastTime = Date.now();
     lastThis = this;
     lastArgs = args;
     // has timer running

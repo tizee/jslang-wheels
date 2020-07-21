@@ -4,19 +4,17 @@
  * like throttle leading edge
  */
 function debounce(func, wait) {
-  let immediate = true;
   let timerId, result;
   return function (...args) {
-    if (timerId) {
-      clearTimeout(timerId);
+    // invoke at first time
+    const callNow = !timerId;
+    if (!timerId) {
+      timerId = setTimeout(() => {
+        timerId = undefined;
+      }, wait);
     }
-    timerId = setTimeout(() => {
-      immediate = true;
-      timerId = undefined;
-    }, wait);
-    if (immediate) {
+    if (callNow) {
       result = func.apply(this, args);
-      immediate = false;
     }
     return result;
   };
