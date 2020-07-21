@@ -18,11 +18,15 @@ B: Only because the interviewer ask me to reinvent it in just couple of minutes(
 - API implementations (polyfill in JavaScript)
   - Promise (in TypeScript)
 - Design Patterns (in TypeScript)
-- Utils
+- Array
+  - map
+  - filter
+  - reduce
+- Higher-Order Functions
   - throttle
   - debounce
-  - deepCopy
-  - deepCompare
+  - zipWith
+  - curry
 
 ### Design Patterns
 

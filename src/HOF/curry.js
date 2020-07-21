@@ -15,6 +15,7 @@ function createCurry(fn, ...args) {
     return fn;
   }
 }
+
 function curry(fn) {
   if (typeof fn !== 'function') {
     throw TypeError('not a function');

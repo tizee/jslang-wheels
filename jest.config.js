@@ -5,4 +5,5 @@ module.exports = {
     '^.+\\.[jt]sx?$': 'babel-jest',
   },
   collectCoverage: true,
+  testTimeout: 100000,
 };
