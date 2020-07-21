@@ -7,10 +7,12 @@ function throttle(func, wait) {
     if (lastArgs) {
       result = func.apply(thisArg, lastArgs);
     }
+    // reset context
     timerId = undefined;
     thisArg = lastArgs = undefined;
   };
   return function (...args) {
+    // update context
     thisArg = this;
     lastArgs = args;
     if (!timerId) {

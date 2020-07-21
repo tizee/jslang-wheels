@@ -1,10 +1,10 @@
 /**
+ *  see https://codepen.io/qtizee/pen/JjGwBbx
  * A debounce funtion for quick implementation
     1. If leading and trailing options are true, func is invoked on the trailing edge of the timeout only if the debounced function is invoked more than once during the wait timeout.
  */
 function debounce(func, wait, option) {
-  let lastTime = 0,
-    immediate = true;
+  let immediate = true;
   let timerId, leading, trailing, thisArg, lastArgs, result;
   if (!option) {
     option = {};
@@ -18,7 +18,6 @@ function debounce(func, wait, option) {
     // trailing edge of timer
     timerId = undefined;
     if (trailing && lastArgs) {
-      lastTime = Date.now();
       result = func.apply(thisArg, lastArgs);
     }
     thisArg = lastArgs = undefined;
@@ -41,15 +40,14 @@ function debounce(func, wait, option) {
         immediate = false;
       }
     } else {
-      // leading-trailing debounce
-      const waiting = Math.min(now - lastTime, wait);
-      lastTime = Date.now();
-      if (!timerId && leading) {
+      if (leading && !timerId) {
+        // no timer
         result = fn.apply(this, args);
         thisArg = lastArgs = undefined;
       }
+      // lock for next wait milliseconds
       // trailing edge
-      timerId = setTimeout(later, waiting);
+      timerId = setTimeout(later, wait);
     }
     return result;
   };
