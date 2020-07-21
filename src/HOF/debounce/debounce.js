@@ -3,7 +3,7 @@
  * 1.  If leading and trailing options are true, func is invoked on the trailing edge of the timeout only if the debounced function is invoked more than once during the wait timeout.
  * 2. If wait is 0 and leading is false, func invocation is deferred until to the next tick, similar to setTimeout with a timeout of 0.
  */
-function debounce(fn, wait, option) {
+function debounce(func, wait, option) {
   let lastTime, lastThis, lastArgs, result, leading, trailing, timerId;
 
   if (typeof option === 'object') {
