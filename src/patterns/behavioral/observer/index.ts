@@ -56,7 +56,8 @@ export class StockDisplay implements Observer {
     this.sum = val;
     this.display();
   }
-  public display(): void {
+  public display(): number {
     console.log(this.sum);
+    return this.sum;
   }
 }
