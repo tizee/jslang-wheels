@@ -5,65 +5,115 @@ abstract class Pizza {
   abstract box();
 }
 
-class PizzaStore {
-  private pizzaFactory: PizzaFactory;
-  constructor() {
-    this.pizzaFactory = new PizzaFactory();
-  }
-
-  orderPizza(type: string): Pizza {
+abstract class PizzaStore {
+  orderPizza(name: string): Pizza {
     let pizza: Pizza;
-    pizza = this.pizzaFactory.createPizza(type);
+    pizza = this.createPizza(name);
+    pizza.prepare();
+    pizza.bake();
+    pizza.cut();
+    pizza.box();
     return pizza;
+  }
+  protected abstract createPizza(name: string): Pizza;
+}
+
+class BJCheesePizza extends Pizza {
+  prepare() {
+    return 'Prepare BJCheesePizza';
+  }
+  bake() {
+    return 'Bake BJCheesePizza';
+  }
+  cut() {
+    return 'Cut BJCheesePizza';
+  }
+  box() {
+    return 'Box BJCheesePizza';
   }
 }
 
-class PizzaFactory {
-  createPizza(type: string): Pizza {
+class BJPizza extends Pizza {
+  prepare() {
+    return 'Prepare BJPizza';
+  }
+  bake() {
+    return 'Bake BJPizza';
+  }
+  cut() {
+    return 'Cut BJPizza';
+  }
+  box() {
+    return 'Box BJPizza';
+  }
+}
+
+class NYCheesePizza extends Pizza {
+  prepare() {
+    return 'Prepare NYCheesePizza';
+  }
+  bake() {
+    return 'Bake NYCheesePizza';
+  }
+  cut() {
+    return 'Cut NYCheesePizza';
+  }
+  box() {
+    return 'Box NYCheesePizza';
+  }
+}
+
+class BJPizzaStore extends PizzaStore {
+  createPizza(name: string): Pizza {
     let pizza: Pizza;
-    switch (type) {
+    switch (name) {
       case 'cheese':
-        pizza = new CheesePizza();
-        break;
-      case 'clam':
-        pizza = new ClamPizza();
+        pizza = new BJCheesePizza();
         break;
       default:
-        pizza = new CheesePizza();
+        pizza = new BJPizza();
         break;
     }
     return pizza;
   }
 }
 
-class ClamPizza extends Pizza {
+class NYPizza extends Pizza {
   prepare() {
-    return 'Prepare ClamPizza';
+    return 'Prepare NYPizza';
   }
   bake() {
-    return 'Bake ClamPizza';
+    return 'Bake NYPizza';
   }
   cut() {
-    return 'Cut ClamPizza';
+    return 'Cut NYPizza';
   }
   box() {
-    return 'Box ClamPizza';
+    return 'Box NYPizza';
+  }
+}
+class NYPizzaStore extends PizzaStore {
+  createPizza(name: string): Pizza {
+    let pizza: Pizza;
+    switch (name) {
+      case 'cheese':
+        pizza = new NYCheesePizza();
+        break;
+      default:
+        pizza = new NYPizza();
+        break;
+    }
+    return pizza;
   }
 }
 
-class CheesePizza extends Pizza {
-  prepare() {
-    return 'Prepare CheesePizza';
-  }
-  bake() {
-    return 'Bake CheesePizza';
-  }
-  cut() {
-    return 'Cut CheesePizza';
-  }
-  box() {
-    return 'Box CheesePizza';
-  }
-}
-
-export { PizzaStore, CheesePizza, ClamPizza, Pizza };
+export {
+  BJCheesePizza,
+  BJPizza,
+  BJPizzaStore,
+  NYPizza,
+  NYPizzaStore,
+  NYCheesePizza,
+  Pizza,
+  PizzaStore,
+};
