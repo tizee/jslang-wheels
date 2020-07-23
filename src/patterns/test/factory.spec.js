@@ -1,12 +1,10 @@
 import {
-  PizzaStore,
   NYPizzaStore,
   BJPizzaStore,
   NYCheesePizza,
   NYPizza,
   BJCheesePizza,
   BJPizza,
-  Pizza,
 } from '../creational/factory';
 
 describe('Factory Method Pattern', () => {
