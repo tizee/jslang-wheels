@@ -9,31 +9,31 @@ interface Subject {
 }
 
 export class StockData implements Subject {
-  private obs: Array<Observer>; // observer list
-  private ids: Map<Observer, number>;
+  private obs: Set<Observer>; // observer list
   private sum: number;
   constructor(sum?: number) {
-    this.obs = [];
-    this.ids = new Map();
+    this.obs = new Set();
     this.sum = sum || 0;
   }
+  // pull method
+  public getSum(): number {
+    return this.sum;
+  }
   public hasOb(ob: Observer): boolean {
-    return this.ids.has(ob);
+    return this.obs.has(ob);
   }
   public registerOb(ob: Observer): boolean {
     if (this.hasOb(ob)) {
       return false;
     }
-    this.obs.push(ob);
-    this.ids.set(ob, this.obs.length);
+    this.obs.add(ob);
     return true;
   }
   public removeOb(ob: Observer): boolean {
     if (!this.hasOb(ob)) {
       return false;
     }
-    this.obs.filter((el) => el !== ob);
-    this.ids.delete(ob);
+    this.obs.delete(ob);
     return true;
   }
   public notfiyObs(): void {
