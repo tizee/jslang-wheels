@@ -3,7 +3,7 @@ import {
   CheesePizza,
   ClamPizza,
   Pizza,
-} from '../structural/factory';
+} from '../creational/factory';
 
 describe('Factory Pattern', () => {
   test('should bake kinds of pizza', () => {
