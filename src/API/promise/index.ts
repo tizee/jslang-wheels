@@ -27,6 +27,7 @@ const platformWrapper = (callback) => {
   }
 };
 
+// if an infinite chain of distinct thenables is encountered, recursing forever is the correct behavior.
 function resolveSP(p: SlimPromise, x: PromiseLike) {
   /**
    * If x is a thenable, it attempts to make promise adopt the state of x, under the assumption that x behaves at least somewhat like a promise. Otherwise, it fulfills promise with the value x.
@@ -58,6 +59,7 @@ function resolveSP(p: SlimPromise, x: PromiseLike) {
     );
   }
   if (isThenable(x)) {
+    // make sure only run resolve or reject once
     let ignored = false;
     let then;
     try {
