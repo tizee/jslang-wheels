@@ -7,6 +7,6 @@
     "lib": ["ES6", "ESNext", "DOM"],
     "outDir": "dist"
   },
-  "include": ["src/API/promise/index.ts", "src/patterns/"],
+  "include": ["src/API/Promise/index.ts", "src/patterns/"],
   "compileOnSave": false
 }

@@ -1,4 +1,4 @@
-const SlimPromise = require('../../dist/promise/index.js').default;
+const SlimPromise = require('../../dist/API/Promise/index.js').default;
 const log = console.log;
 
 log('main program enter');

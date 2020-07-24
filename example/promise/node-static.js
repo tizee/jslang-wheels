@@ -12,7 +12,7 @@ let p2 = Promise.resolve(
 p2.then((res) => {
   console.log(res);
 });
-let p3 = Promise.reject(3);
+let p3 = Promise.reject('Error');
 p3.catch((err) => {
   console.log(err);
 });

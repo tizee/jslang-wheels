@@ -1,0 +1,5 @@
+{
+  "extension": ["ts"],
+  "spec": "src/API/Promise/**/*.spec.ts",
+  "require": "ts-node/register"
+}

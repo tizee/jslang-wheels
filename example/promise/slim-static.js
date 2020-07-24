@@ -1,4 +1,4 @@
-const SlimPromise = require('../../dist/promise/index').default;
+const SlimPromise = require('../../dist/API/Promise/index').default;
 
 let p1 = SlimPromise.resolve(1);
 p1.then((res) => {
@@ -14,7 +14,7 @@ let p2 = SlimPromise.resolve(
 p2.then((res) => {
   console.log(res);
 });
-let p3 = SlimPromise.reject(3);
+let p3 = SlimPromise.reject('Error');
 p3.catch((err) => {
   console.log(err);
 });

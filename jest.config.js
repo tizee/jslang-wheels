@@ -4,6 +4,7 @@ module.exports = {
   transform: {
     '^.+\\.[jt]sx?$': 'babel-jest',
   },
+  testPathIgnorePatterns: ['/node_modules/', '/PromiseAplus/', '/example/'],
   collectCoverage: true,
   testTimeout: 100000,
 };
