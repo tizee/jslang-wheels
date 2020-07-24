@@ -16,7 +16,7 @@ function isPromise(obj: any): boolean {
 }
 
 function hasNextTick() {
-  return typeof process === 'object' && 'nextTick' in process;
+  return process && typeof process === 'object' && 'nextTick' in process;
 }
 // platform code
 const platformWrapper = (callback) => {
