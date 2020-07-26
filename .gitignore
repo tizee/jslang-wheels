@@ -6,3 +6,5 @@ dist
 # npm modules
 node_modules
 yarn.lock
+# history
+.history
