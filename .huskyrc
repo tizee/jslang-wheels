@@ -1,0 +1,5 @@
+{
+    "hooks":{
+        "commit-msg": "yarn run commitlint -e $GIT_PARAMS"
+    }
+}
