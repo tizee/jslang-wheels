@@ -19,9 +19,9 @@ class Light {
 class TheaterFacade {
   cd: CDPlayer;
   light: Light;
-  constructor() {
-    this.light = new Light();
-    this.cd = new CDPlayer();
+  constructor(player: CDPlayer, light: Light) {
+    this.light = light;
+    this.cd = player;
   }
   play() {
     this.light.close();
@@ -33,4 +33,4 @@ class TheaterFacade {
   }
 }
 
-export { TheaterFacade };
+export { TheaterFacade, CDPlayer, Light };
