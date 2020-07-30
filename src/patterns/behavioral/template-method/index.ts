@@ -4,10 +4,16 @@ abstract class CaffeinBeverage {
     this.boilWater();
     this.brew();
     this.pourInCup();
-    this.addCondiments();
+    if (this.addHook()) {
+      this.addCondiments();
+    }
   }
   abstract brew(): void;
   abstract addCondiments(): void;
+
+  addHook() {
+    return true;
+  }
 
   boilWater() {
     console.log('Boil water');
@@ -18,6 +24,14 @@ abstract class CaffeinBeverage {
 }
 
 class Coffee extends CaffeinBeverage {
+  add: boolean;
+  addHook() {
+    return this.add;
+  }
+  constructor(add: boolean) {
+    super();
+    this.add = add;
+  }
   brew() {
     console.log('Dripping coffee throught filter');
   }
@@ -27,6 +41,14 @@ class Coffee extends CaffeinBeverage {
 }
 
 class Tea extends CaffeinBeverage {
+  add: boolean;
+  addHook() {
+    return this.add;
+  }
+  constructor(add: boolean) {
+    super();
+    this.add = add;
+  }
   brew() {
     console.log('Steeping the tea');
   }
