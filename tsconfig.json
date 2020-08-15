@@ -4,9 +4,9 @@
     "module": "CommonJS",
     "moduleResolution": "Node",
     "experimentalDecorators": true,
-    "lib": ["ES6", "ESNext", "DOM"],
+    "lib": ["ES5", "ES6", "ESNext", "DOM"],
     "outDir": "dist"
   },
-  "include": ["src/API/Promise/index.ts", "src/patterns/"],
+  "include": ["src/polyfill/Promise/index.ts", "src/patterns/"],
   "compileOnSave": false
 }
