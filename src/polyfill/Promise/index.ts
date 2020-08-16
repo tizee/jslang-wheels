@@ -1,9 +1,9 @@
 // helpers
-function isObj(obj): boolean {
+function isObj(obj): obj is Object {
   return obj != null && typeof obj === 'object';
 }
 
-function isFunc(obj): boolean {
+function isFunc(obj): obj is Function {
   return typeof obj === 'function';
 }
 
@@ -11,7 +11,7 @@ function isThenable(obj): boolean {
   return (isObj(obj) || isFunc(obj)) && 'then' in obj;
 }
 
-function isPromise(obj: any): boolean {
+function isPromise(obj: any): obj is SlimPromise {
   return obj instanceof SlimPromise;
 }
 
@@ -44,9 +44,9 @@ function resolveSP(p: SlimPromise, x: PromiseLike) {
    * 2.3.2.1 If x is pending, promise must remain pending until x is fulfilled or rejected.
    */
   if (isPromise(x)) {
-    if ((x as SlimPromise).state === PROMISE_STATES.fulfilled) {
+    if (x.state === PROMISE_STATES.fulfilled) {
       return p.transition(PROMISE_STATES.fulfilled, (x as SlimPromise).val);
-    } else if ((x as SlimPromise).state === PROMISE_STATES.rejected) {
+    } else if (x.state === PROMISE_STATES.rejected) {
       return p.transition(PROMISE_STATES.rejected, (x as SlimPromise).reason);
     }
     return x.then(
