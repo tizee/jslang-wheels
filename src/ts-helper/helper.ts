@@ -34,6 +34,9 @@ type $Record<K extends keyof any, T> = {
   [P in K]: T;
 };
 
+// 6. Exclude type helper
+type $Exclude<T, U> = T extends U ? never : U;
+
 // Custom helpers
 type $NullAndUndefined<T> = {
   [P in keyof T]: T[P] | null | undefined;
